@@ -1,0 +1,109 @@
+.advertise{
+	border:solid .2rem #34495E; 
+	padding:1rem;
+	margin-bottom: 2rem;
+	text-align: center;
+}
+#ad-highlight{
+	box-shadow: 0px 0px 8px #7F8C8D;
+}
+.adImage{
+	display: block;
+}
+.adImage img{
+	width: 6rem;
+
+}
+.adText {
+	font-size: 2rem;
+	font-weight: bold;
+	display: block;
+}
+#screenView{
+	border: solid .5rem #BDC3C7;
+	border-radius: 1rem;
+	box-shadow: -.2rem .3rem 0rem #95A5A6, .2rem .3rem 0rem #95A5A6;
+}
+#pinPad {
+	display: inline-block;
+	float: left;
+}
+#pinPad td{
+	padding:1rem;
+}
+#pinPad a{
+	font-size: 3rem;
+	padding: 1rem 3rem;
+}
+#confirmPin{
+	display: block;
+	float: left;
+	margin-left: 1rem;
+	margin-top: 1rem;
+}
+#confirmPin a{
+	text-align: center;
+	font-size: 5rem;
+	padding: 5rem 3rem;
+}
+#cancelTransaction{
+	display: block;
+	float: right;
+	margin-right: 1rem;
+	margin-top: 5.5em;
+}
+.btn-padding{
+	padding: 1.5rem 0;
+    font-size: 3rem;
+    width: 6em;
+}
+.tile{
+	border:solid 1px #CCC;
+}
+.tile h6{
+	font-size: 2rem;
+	padding:0rem 0;
+}
+.tile>label{
+	display: block;
+}
+
+.accountsListItem>span{
+	display: inline-block;
+	width: 20em;
+}
+span.icon{
+	display: inline-block;
+	width: 2rem;
+	float: right;
+	color: #BDC3C7;
+}
+
+h4.balance {
+	text-align: left;
+	padding: 0 2em;
+}
+h4.balance span{
+	color:#95A5A6;
+	display: inline-block;
+	width: 6em;
+}
+.modalList{
+	margin-bottom: 1em;
+}
+.modalList>p{
+	font-size: 2rem;
+	text-align: left;
+	margin-bottom: 0;
+	padding: 1rem 0;
+}
+.modalList>p>span{
+	display: inline-block;
+	width: 18em
+}
+button.routingButton{
+	margin-top:1rem; 
+	padding:1em 0; 
+	font-size:2rem;
+	width:100%;
+}
