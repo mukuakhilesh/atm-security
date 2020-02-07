@@ -3,6 +3,7 @@ var app= express();
 var bodyparser= require('body-parser');
 var ejs = require('ejs');
 var socketio = require('socket.io');
+var transactonModel = require("./Models/transaction_model"); ///importing transaction model
 app.use("/public",express.static(__dirname+'/public'));
 var socket1=null;
 var expresserver=app.listen(3000,()=>{
@@ -17,6 +18,20 @@ app.get('/home',(req,res)=>{
 })
 app.get('/pinInput',(req,res)=>{
     res.render('input_pin.ejs')
+})
+app.post('/transaction',(req,res)=>{
+try{
+    transactonModel.create({
+        acc_no:req.body.accn_no,
+        fingerprint:req.body.fingerprint,
+        transaction_id:req.body.transaction_id,
+        amount:req.body.amount
+    }).then(()=>{
+        console.log("transaction successfull");
+    })
+}catch(err){
+    console.log(err);
+}
 })
 io.on('connection',(socket)=>{
     console.log("socket is connected");
