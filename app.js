@@ -3,11 +3,20 @@ var app= express();
 var bodyparser= require('body-parser');
 var ejs = require('ejs');
 var socketio = require('socket.io');
+
+
 app.use("/public",express.static(__dirname+'/public'));
 var socket1=null;
+
+// Import Schemas
+var userModel = require('./Models/user_model');
+
+
 var expresserver=app.listen(3000,()=>{
     console.log('listening to 3000');
 })
+
+
 var io=socketio(expresserver);
 app.get('/insert',(req,res)=>{
     res.render('insert_card.ejs')
@@ -18,6 +27,22 @@ app.get('/home',(req,res)=>{
 app.get('/pinInput',(req,res)=>{
     res.render('input_pin.ejs')
 })
+
+app.post('/adduser' , (req , res)=> {
+    try{
+        userModel.create({
+            name : req.body.name , 
+            acc_no : req.body.acc_no , 
+            pin : req.body.pin , 
+            finger_avail : req.body.finger_avail , 
+        }).then(() => {
+            console.log("User created !!");
+        })
+    }catch(err) {
+    console.log(err);
+    }
+})
+
 io.on('connection',(socket)=>{
     console.log("socket is connected");
      socket1= socket;
