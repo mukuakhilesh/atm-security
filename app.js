@@ -52,7 +52,7 @@ try{
         transaction_id:req.body.transaction_id,
         amount:req.body.amount
     }).then(()=>{
-        console.log("transaction successfull");
+        console.log("transaction sucessfull");
     })
 }catch(err){
     console.log(err);
