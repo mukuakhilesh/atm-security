@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ATM System Login: Input Pin</title>
+    <title>ATM System Account: Options</title>
     <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."/>
 
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
@@ -12,7 +12,7 @@
 
     <!-- Loading Flat UI -->
     <link href="public/dist/css/flat-ui.css" rel="stylesheet">
-  
+    <link href="public/docs/assets/css/demo.css" rel="stylesheet">
     <link href="public/css/custom.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="public/img/favicon.ico">
@@ -33,34 +33,44 @@
       <div class="row">
         <div class="col-xs-12" id="screenView">
           <!-- Place <h1></h1> below -->
+          <h1 class="demo-section-title text-uppercase text-center">Options</h1>
+          
+           <div class="row">
+        <div class="col-xs-3">
+          <div class="tile">
+            <img src="public/img/quick_cash.png" alt="Quick Cash" class="tile-image big-illustration">
+            <h3 class="tile-title">Quick Cash</h3>
+            <p>Get cash now without looking at account!</p>
+          </div>
+        </div>
 
-          <!-- Replace Video with Animated Gif or Animated SVG -->
-          <div class="row">
-            <div class="col-xs-8 text-center" style="border-right:solid 3px #CCC">
-              <h1 class="demo-section-title text-uppercase text-center">Input Your Pin Number</h1>
-              <input style="color:black" type="text" id="userPinInput" class="form-control" disabled/>
-              <!-- TABLE -->
-              <div id="pinPad">
-               
-              </div><!-- // Pin Pad -->
-              
-              <div id="confirmPin">
-                <a href="#" class="btn btn-block btn-lg btn-success text-uppercase">Confirm</a>
-              </div>
-              <div id="cancelTransaction">
-                <a href="#" class="btn btn-block btn-lg btn-danger text-uppercase"><span class="fui-cross"></span> Cancel</a>
-              </div><!-- // Pin Pad -->
-            </div> 
+        <div class="col-xs-3">
+          <div class="tile">
+            <img src="public/img/accounts_checklist.png" alt="Accounts" class="tile-image">
+            <h3 class="tile-title">Select Account(s)</h3>
+            <p>View available accounts, check balances, and more...</p>
+          </div>
+        </div>
+
+        <div class="col-xs-3">
+          <div class="tile">
+            <img src="public/img/deposit_vault.png" alt="Deposits" class="tile-image">
+            <h3 class="tile-title">Make a Deposite</h3>
+            <p>Make a cash, check, <br>or envelope deposite.</p>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="tile">
+           <a id="logout" href="#" class="btn btn-lg btn-info text-uppercase btn-padding"><span class="fui-user"></span> Logout</a>
+          </div>
+          <br>
+          <div class="tile">
+           <a id="cancelTransactin" href="#" class="btn btn-lg btn-danger text-uppercase btn-padding"><span class="fui-cross"></span> Cancel</a>
+          </div>
+        </div>
+      </div> <!-- // END OPTIONS-->
 
 
-            <div class="col-xs-4">
-              <div style="margin-top:8rem;">
-                <img src="public/img/CardInsertedGreenLight.png" style="width:16em;"/>
-              </div>
-            </div><!-- /.col-xs-4 -->
-
-            
-          </div><!-- // END login screen  -->
       </div><!--  // END column-->
       <div class="col-xs-12">
         <h2><blockquote>This ATM System is for software testing only! --- <a href="#">sitemap</a></blockquote> </h2>
@@ -72,25 +82,12 @@
 
     </div> <!-- /container -->
 
-    <script src="socket.io/socket.io.js"></script>
-
+    
 
     <script src="public/dist/js/vendor/jquery.min.js"></script>
     <script src="public/dist/js/vendor/video.js"></script>
     <script src="public/dist/js/flat-ui.min.js"></script>
-    <script>
-     const socket = io('http://localhost:3000');
-     socket.on('connect',()=>{
-       console.log('client connected to server ');
-     })
-     socket.on('server_data',(data)=>{
-       jQuery('#userPinInput').val(data);
-       console.log(data);
-     })
-    //  socket.on('disconnect',()=>{
-    //    socket.disconnet();
-    //  })
-    </script>
+    <script src="public/docs/assets/js/application.js"></script>
 
     <script>
       videojs.options.flash.swf = "public/dist/js/vendors/video-js.swf"

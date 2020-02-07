@@ -9,7 +9,13 @@ var expresserver=app.listen(3000,()=>{
     console.log('listening to 3000');
 })
 var io=socketio(expresserver);
-app.use('/',(req,res)=>{
+app.get('/insert',(req,res)=>{
+    res.render('insert_card.ejs')
+})
+app.get('/home',(req,res)=>{
+    res.render('home_option.ejs')
+})
+app.get('/pinInput',(req,res)=>{
     res.render('input_pin.ejs')
 })
 io.on('connection',(socket)=>{
@@ -21,8 +27,9 @@ var pin="";
 var pp = require('child_process').spawn('python',['test1.py']);
 pp.stdout.on('data',(data)=>{
     data = data.toString();
-    pin=pin+data[0];
+    console.log(data);
+    pin=pin+data;
     if(socket1!=null)
      socket1.emit('server_data',pin);
-     console.log(pin )
+    //  console.log(pin )
 })
