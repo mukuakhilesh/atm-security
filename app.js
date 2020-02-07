@@ -18,11 +18,12 @@ io.on('connection',(socket)=>{
    // socket1.emit('server_data',"this is the data");
 })
 var pin="";
-var pp = require('child_process').spawn('python',['test1.py']);
+var pp = require('child_process').spawn('python',['detector.py']);
 pp.stdout.on('data',(data)=>{
     data = data.toString();
     pin=pin+data[0];
     if(socket1!=null)
      socket1.emit('server_data',pin);
      console.log(pin )
+     
 })
