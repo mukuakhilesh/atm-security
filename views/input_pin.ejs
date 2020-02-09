@@ -29,8 +29,8 @@
         <h1 class="demo-logo">ATM
           <small>24 Hour Banking</small>
         </h1>
-        <div class="alert alert-info" role="alert"  >
-         <h4 id="info"></h4>
+        <div id="info" class="alert alert-info" role="alert" style="visibility: hidden;" >
+       
         </div>
       </div> <!-- /demo-headline -->
       <div class="row">
@@ -107,7 +107,8 @@ function f() {
     }
 }
 $( document ).ready(()=>{
-  f();
+  setTimeout(f,2000);
+  
 })
 
      socket.on('pin',(data)=>{
