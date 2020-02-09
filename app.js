@@ -7,12 +7,32 @@ var socketio = require('socket.io');
 var bodyparser = require('body-parser');
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
+var session = require('express-session');
+const customMware = require('./config/middleware');
+
+ 
+var cookieParser = require('cookie-parser');
+ 
+var flash = require('connect-flash');
+
+
 mongoose.connect("mongodb://localhost:27017/atm-security", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("db connected");///use process.env.LOCALDB to connect to local mmongoDB server
 }); 
+
+
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(bodyparser.json());
 app.use("/public",express.static(__dirname+'/public'));
+app.use(cookieParser());
+ 
+app.use(session({
+    secret:'secret',
+    saveUninitialized:true,
+    resave:true,
+    cookie: { maxAge: 60000 }}));
+ 
+app.use(flash());
 var socket1=null;
 server.bind(10000);                                      //////////binding udp port to 10000
 
@@ -23,6 +43,7 @@ var io=socketio(expresserver);                           //////connecting to the
 
 
 
+//app.use(customMware.setFlash);
 
 server.on('error', (err) => {
   console.log(`server error:\n${err.stack}`);
@@ -59,8 +80,8 @@ app.get('/insert',(req,res)=>{
     
 })
 app.get('/home',(req,res)=>{
-    console.log(req.query)                                               ////////// home page after card swipe//////////////
-    res.render('home_option.ejs',{User:req.query})
+    console.log(req.query);                                               ////////// home page after card swipe//////////////
+    res.render('home_option.ejs',{User:req.query});
 })
 
 
@@ -83,8 +104,14 @@ app.get('/pinInput/:acc_no',(req,res)=>{
 
 
 app.get('/pinConfirm',async(req,res)=>{
-     if(account_no==""||pin=="")
-       res.send("error dtected");
+     if(account_no=="" || pin=="")
+       {
+        //    res.send("error dtected");
+       console.log("niko");
+        req.flash('info', 'Error detected');
+       return res.redirect('/home');
+       
+}
     else{
      userModel.findOne({acc_no:account_no},(err,user)=>{
          if(err) console.log(err)

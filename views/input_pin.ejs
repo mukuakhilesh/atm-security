@@ -46,7 +46,7 @@
               </div><!-- // Pin Pad -->
               
               <div id="confirmPin">
-                <a href="" class="btn btn-block btn-md btn-success btn-default btn-circle " style="position: relative;top:63px;" id="pinConf">Confirm</a>
+                <a href="/pinConfirm" class="btn btn-block btn-md btn-success btn-default btn-circle " style="position: relative;top:63px;" id="pinConf">Confirm</a>
               </div>
               <div id="cancelTransaction">
                 <a href="/pincancel" class="btn btn-block btn-lg btn-danger text-uppercase"><span class="fui-cross"></span> Cancel</a>
@@ -90,6 +90,7 @@
      socket.on('pin',(data)=>{
        jQuery('#userPinInput').val(data);
        console.log(data);
+       
        if(data.length==4)
        {
          jQuery("#pinConf").attr("href","/pinconfirm")
