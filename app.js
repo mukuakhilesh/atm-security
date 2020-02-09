@@ -91,7 +91,9 @@ app.post('/adduser' , async (req , res)=> {
     res.send("unsuccessfull");
     }
 })
-
+app.get('/withdrawal',(req,res)=>{
+    res.render('withdrawal.ejs')
+})
 app.post('/newtransaction',(req,res)=>{
     console.log(req.body);
 try{
