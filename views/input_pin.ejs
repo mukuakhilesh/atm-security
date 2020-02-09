@@ -29,6 +29,9 @@
         <h1 class="demo-logo">ATM
           <small>24 Hour Banking</small>
         </h1>
+        <div class="alert alert-info" role="alert"  >
+         <h4 id="info"></h4>
+        </div>
       </div> <!-- /demo-headline -->
       <div class="row">
         <div class="col-xs-12" id="screenView">
@@ -80,15 +83,36 @@
     <script src="/public/dist/js/vendor/video.js"></script>
     <script src="/public/dist/js/flat-ui.min.js"></script>
     <script>
-     
-
-
+     var i;
+    
      const socket = io('http://localhost:3000')
      socket.on('connect',()=>{
        console.log('client connected to server ');
      })
+    //  for(i=1;i<5;i++)
+    // { 
+    //   jQuery("#alert").css({"visibility":"visible"});   dont work here
+    //   jQuery("#alert").text("enter you "+i +" pin");
+    //   socket.emit('getpin',{});
+    // }
+
+    var i = 1, howManyTimes = 5;
+function f() {
+ jQuery("#info").css({"visibility":"visible"});
+  jQuery("#info").text("enter your  "+i+" pin" );
+      socket.emit('getpin',{});
+    i++;
+    if( i < howManyTimes ){
+        setTimeout( f, 6000 );
+    }
+}
+$( document ).ready(()=>{
+  f();
+})
+
      socket.on('pin',(data)=>{
        jQuery('#userPinInput').val(data);
+       jQuery("#info").css({"visibility":"hidden"});
        console.log(data);
        
        if(data.length==4)
