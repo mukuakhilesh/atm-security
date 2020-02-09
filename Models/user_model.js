@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-
+const {transactionSchema}= require("./transaction_model")
 const userSchema = mongoose.Schema({
     name : {
         type : String, 
@@ -31,11 +31,7 @@ const userSchema = mongoose.Schema({
         type : String , 
         required : false
     } , 
-    transcation_report : [{
-        type : mongoose.Schema.Types.ObjectId , 
-        ref : 'Transaction' , 
-        // info of last 10 transactions
-    }]
+    transaction_report : [transactionSchema]
 });
 
 module.exports = mongoose.model('User' , userSchema);

@@ -36,13 +36,31 @@
 
           <!-- Replace Video with Animated Gif or Animated SVG -->
           <div class="row">
-            <div class="col-xs-8 text-center">
+            <div class="col-xs-8 text-center" style="border-right: groove 4px;">
               <h1 class="demo-section-title text-uppercase text-center">Insert Card to Begin</h1>
               <img src="public/img/InsertCardAnimate.gif" />
             </div> <!-- // ANIMATED GIF -->
 
-
-            <div class="col-xs-4">
+             <div class="col-xs-4">
+               <%Users.forEach((user)=>{%>
+            
+                <div style="display:grid;">
+                  <a href="/home?acc_no=<%=user.acc_no%>&name=<%=user.name%>">
+                   <div style="float:left" >
+                    <img src="/public/atm-card.jpg" alt="" height="100px" width="120px">
+                   </div>
+                 <div style="color:#ffb100;text-transform: capitalize;margin-left:20px;float:left">
+                  <h6 ><%=user.name%></h4>
+                  <h6><%=user.acc_no%></h5>
+                  
+                 </div>
+                </a>
+                </div>
+             
+              <br>
+              <%})%>
+             </div>
+            <!-- <div class="col-xs-4">
               <br />
               <div class="advertise">
                 <div class="adImage">
@@ -63,14 +81,12 @@
                 <div class="adText">Save on Travel</div>
               </div>
               
-            </div><!-- /.col-xs-4 -->
+            </div>/.col-xs-4 -->
 
             
           </div><!-- // END login screen  -->
       </div><!--  // END column-->
-      <div class="col-xs-12">
-        <h2><blockquote>This ATM System is for software testing only! --- <a href="#">sitemap</a></blockquote> </h2>
-      </div>
+    
   </div><!-- // END row-->
 
       

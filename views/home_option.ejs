@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
 
     <!-- Loading Bootstrap -->
-    <link href="public/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Loading Flat UI -->
-    <link href="public/dist/css/flat-ui.css" rel="stylesheet">
-    <link href="public/docs/assets/css/demo.css" rel="stylesheet">
-    <link href="public/css/custom.css" rel="stylesheet">
+    <link href="/public/dist/css/flat-ui.css" rel="stylesheet">
+    <link href="/public/docs/assets/css/demo.css" rel="stylesheet">
+    <link href="/public/css/custom.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="public/img/favicon.ico">
+    <link rel="shortcut icon" href="/public/img/favicon.ico">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -29,6 +29,7 @@
         <h1 class="demo-logo">ATM
           <small>24 Hour Banking</small>
         </h1>
+        <h2 style="text-align: center;text-decoration: dotted;text-transform: capitalize;"><i>welcome!!! <br> <%=User.name%></i></h2>
       </div> <!-- /demo-headline -->
       <div class="row">
         <div class="col-xs-12" id="screenView">
@@ -37,16 +38,19 @@
           
            <div class="row">
         <div class="col-xs-3">
-          <div class="tile">
-            <img src="public/img/quick_cash.png" alt="Quick Cash" class="tile-image big-illustration">
-            <h3 class="tile-title">Quick Cash</h3>
-            <p>Get cash now without looking at account!</p>
-          </div>
+          <a href="/pinInput/<%=User.acc_no%>">
+            <div class="tile">
+              <img src="/public/img/quick_cash.png" alt="Quick Cash" class="tile-image big-illustration">
+              <h3 class="tile-title">Cash Withdrawal</h3>
+              <p>Get cash under a highly secure environment</p>
+            </div>
+          </a>
+         
         </div>
 
         <div class="col-xs-3">
           <div class="tile">
-            <img src="public/img/accounts_checklist.png" alt="Accounts" class="tile-image">
+            <img src="/public/img/accounts_checklist.png" alt="Accounts" class="tile-image">
             <h3 class="tile-title">Select Account(s)</h3>
             <p>View available accounts, check balances, and more...</p>
           </div>
@@ -54,7 +58,7 @@
 
         <div class="col-xs-3">
           <div class="tile">
-            <img src="public/img/deposit_vault.png" alt="Deposits" class="tile-image">
+            <img src="/public/img/deposit_vault.png" alt="Deposits" class="tile-image">
             <h3 class="tile-title">Make a Deposite</h3>
             <p>Make a cash, check, <br>or envelope deposite.</p>
           </div>
@@ -84,13 +88,13 @@
 
     
 
-    <script src="public/dist/js/vendor/jquery.min.js"></script>
-    <script src="public/dist/js/vendor/video.js"></script>
-    <script src="public/dist/js/flat-ui.min.js"></script>
-    <script src="public/docs/assets/js/application.js"></script>
+    <script src="/public/dist/js/vendor/jquery.min.js"></script>
+    <script src="/public/dist/js/vendor/video.js"></script>
+    <script src="/public/dist/js/flat-ui.min.js"></script>
+    <script src="/public/docs/assets/js/application.js"></script>
 
     <script>
-      videojs.options.flash.swf = "public/dist/js/vendors/video-js.swf"
+      videojs.options.flash.swf = "/public/dist/js/vendors/video-js.swf"
     </script>
   </body>
 </html>

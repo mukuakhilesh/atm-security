@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
 
     <!-- Loading Bootstrap -->
-    <link href="public/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Loading Flat UI -->
-    <link href="public/dist/css/flat-ui.css" rel="stylesheet">
+    <link href="/public/dist/css/flat-ui.css" rel="stylesheet">
   
-    <link href="public/css/custom.css" rel="stylesheet">
+    <link href="/public/css/custom.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="public/img/favicon.ico">
+    <link rel="shortcut icon" href="/public/img/favicon.ico">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -36,7 +36,7 @@
 
           <!-- Replace Video with Animated Gif or Animated SVG -->
           <div class="row">
-            <div class="col-xs-8 text-center" style="border-right:solid 3px #CCC">
+            <div class="col-xs-8 text-center" style="border-right:solid 3px #CCC;background: darkgray;">
               <h1 class="demo-section-title text-uppercase text-center">Input Your Pin Number</h1>
               <input style="color:black" type="text" id="userPinInput" class="form-control" disabled/>
               <!-- TABLE -->
@@ -45,7 +45,7 @@
               </div><!-- // Pin Pad -->
               
               <div id="confirmPin">
-                <a href="#" class="btn btn-block btn-lg btn-success text-uppercase">Confirm</a>
+                <a href="#" class="btn btn-block btn-md btn-success btn-default btn-circle " style="position: relative;top:63px;">Confirm</a>
               </div>
               <div id="cancelTransaction">
                 <a href="#" class="btn btn-block btn-lg btn-danger text-uppercase"><span class="fui-cross"></span> Cancel</a>
@@ -53,9 +53,9 @@
             </div> 
 
 
-            <div class="col-xs-4">
+            <div class="col-xs-4" style="background: darkgray;">
               <div style="margin-top:8rem;">
-                <img src="public/img/CardInsertedGreenLight.png" style="width:16em;"/>
+                <img src="/public/img/CardInsertedGreenLight.png" style="width:16em;"/>
               </div>
             </div><!-- /.col-xs-4 -->
 
@@ -75,9 +75,9 @@
     <script src="socket.io/socket.io.js"></script>
 
 
-    <script src="public/dist/js/vendor/jquery.min.js"></script>
-    <script src="public/dist/js/vendor/video.js"></script>
-    <script src="public/dist/js/flat-ui.min.js"></script>
+    <script src="/public/dist/js/vendor/jquery.min.js"></script>
+    <script src="/public/dist/js/vendor/video.js"></script>
+    <script src="/public/dist/js/flat-ui.min.js"></script>
     <script>
      const socket = io('http://localhost:3000');
      socket.on('connect',()=>{
@@ -93,7 +93,7 @@
     </script>
 
     <script>
-      videojs.options.flash.swf = "public/dist/js/vendors/video-js.swf"
+      videojs.options.flash.swf = "/public/dist/js/vendors/video-js.swf"
     </script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-var mongoose = reuire("mongoose");
+var mongoose = require("mongoose");
  var transactionSchema= mongoose.Schema({
  acc_no:{
   type:String,
@@ -18,5 +18,5 @@ amount:{
 }
  })
  var transactionModel = mongoose.model('Transaction',transactionSchema);
- module.exports = transactionModel;
- 
+ exports.transactionModel = transactionModel;
+ exports.transactionSchema= transactionSchema;
