@@ -1,71 +1,118 @@
 var express = require('express');
 var app= express();
+const dgram = require('dgram');
+const server = dgram.createSocket('udp4');  ///////importing udp socket and creating server
 var ejs = require('ejs');
 var socketio = require('socket.io');
 var bodyparser = require('body-parser');
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-var transactionModel = require("./Models/transaction_model");
 mongoose.connect("mongodb://localhost:27017/atm-security", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("db connected");///use process.env.LOCALDB to connect to local mmongoDB server
-}); ///importing transaction model
+}); 
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(bodyparser.json());
 app.use("/public",express.static(__dirname+'/public'));
 var socket1=null;
+server.bind(10000);                                      //////////binding udp port to 10000
+
+var expresserver=app.listen(3000,()=>{
+    console.log('listening to 3000');                  
+})
+var io=socketio(expresserver);                           //////connecting to the webpage via socket
+
+
+
+
+server.on('error', (err) => {
+  console.log(`server error:\n${err.stack}`);
+  server.close();
+});
+
+
+
+server.on('listening', () => {
+  const address = server.address();
+  console.log(`server listening ${address.address}:${address.port}`);
+});
+
+
 
 // Import Schemas
 var userModel = require('./Models/user_model');
+var transactionModel = require("./Models/transaction_model");
 
 
-var expresserver=app.listen(3000,()=>{
-    console.log('listening to 3000');
-})
-var pin="1234";
-var account_no="12345678901";
-var io=socketio(expresserver);
+//------------------------------------------------------------------------------------------------------------------------------------------------////////////////////////
+var pin="";
+var account_no="";     /////  user pin and password received from the user ////
+
 app.get('/insert',(req,res)=>{
     userModel.find({},async(err,data)=>{
         if(err) console.log(err);
         else{
-        console.log(data);
+        console.log(data);                                               ////insert  atm card ..1st page 
      res.render('insert_card.ejs',{Users:data})
            
         }
     })
     
 })
+app.get('/home',(req,res)=>{
+    console.log(req.query)                                               ////////// home page after card swipe//////////////
+    res.render('home_option.ejs',{User:req.query})
+})
+
+
+app.get('/pinInput/:acc_no',(req,res)=>{
+    console.log(req.params.acc_no)                                      ////////////render input pin page   ////
+    account_no= req.params.acc_no;
+    res.render('input_pin.ejs')
+})
+
+// app.get('/rcvpin',(req,res)=>{       ////input pin from python model using udp socket
+//     server.on('message', (msg, rinfo) => {
+//         console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+       
+//       });  
+//       server.send(Buffer.from("data received"), rinfo.port, rinfo.address, (err) => {
+//         console.log(err);
+//        });
+
+// })
+
+
 app.get('/pinConfirm',async(req,res)=>{
      if(account_no==""||pin=="")
-         res.send("error dtected");
+       res.send("error dtected");
+    else{
      userModel.findOne({acc_no:account_no},(err,user)=>{
          if(err) console.log(err)
          console.log(user.pin)
-         hash =user.pin.toString();
-        bcrypt.compare(pin,hash).then((result)=>{
+         hash =user.pin.toString();                                              ////////////confirm pin on clicking confirm button
+         bcrypt.compare(pin,hash).then((result)=>{
             console.log(pin);
             console.log(account_no)
             if(result==true)
                res.send("validpin");
            else 
                res.send("invalidPin")
+        
         })
+    
      });
- app.get('/testing',(req,res)=>{
-     console.log(res.body);
- })
+    }
 })
 app.get('/pincancel',(req,res)=>{
    pin="";
-   account_no="";
+   account_no="";                            /////////////////// cancel pin when pin is cancelled
 
    res.redirect('/insert');
 })
-app.get('/pinInput/:acc_no',(req,res)=>{
-    console.log(req.params.acc_no)
 
-    res.render('input_pin.ejs')
-})
+
+
+
 
 app.post('/adduser' , async (req , res)=> {
     try{
@@ -73,7 +120,7 @@ app.post('/adduser' , async (req , res)=> {
        var hash = await bcrypt.hash(req.body.pin,salt);
        req.body.pin = hash;
         userModel.create({
-            name : req.body.name , 
+            name : req.body.name ,                                      /// add user to the database
             acc_no : req.body.acc_no , 
             pin : req.body.pin , 
             finger_avail : req.body.finger_avail , 
@@ -138,24 +185,46 @@ try{
 }
 
 })
-app.get('/home',(req,res)=>{
-    console.log(req.query)
-    res.render('home_option.ejs',{User:req.query})
-})
+
+    server.on('message', (msg, rinfo) => {
+         console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+         pin+=msg;
+         console.log("pin:",pin);
+         socket1.emit('pin',pin);
+       
+    });  
+//       server.send(Buffer.from("data received"), rinfo.port, rinfo.address, (err) => {
+//         console.log(err);
+//        });
+/////////////////////       sokcet script///////////////////////////////////
+
+
 io.on('connection',(socket)=>{
     console.log("socket is connected");
      socket1= socket;
+    
+
+     socket.on('getpin',(data)=>{
+         console.log("here");
+     server.send(Buffer.from("pin"),10000,"192.168.43.253", (err) => {
+     console.log(err);
+     })
+     socket.on('disconnect',()=>{
+         pin="";
+         account_no="";
+         socket.disconnect();
+     })
    // socket1.emit('server_data',"this is the data");
 })
-
-
-var pp = require('child_process').spawn('python',['detector.py']);
-pp.stdout.on('data',(data)=>{
-    data = data.toString();
-    console.log(data);
-    pin=pin+data;
-    if(socket1!=null)
-     socket1.emit('server_data',pin);
-     console.log(pin )
-     
 })
+//-------------------------run a python script from  node.js///////////////////
+// var pp = require('child_process').spawn('python',['detector.py']);
+// pp.stdout.on('data',(data)=>{
+//     data = data.toString();
+//     console.log(data);
+//     pin=pin+data;
+//     if(socket1!=null)
+//      socket1.emit('server_data',pin);
+//      console.log(pin )
+     
+// 

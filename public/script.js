@@ -4,9 +4,9 @@ $(".tile button").click(function() {
     console.log("khusih priya");
     var fired_button = $(this).attr('value');
     var display=$('#qcCustomNumber');
-    var htmlstring="Rs"+fired_button;
+    var htmlstring=fired_button;
     console.log(fired_button);
-    display.text(htmlstring);
+    display.val(htmlstring);
     console.log(display);
     //fired_button='';
 });
@@ -29,5 +29,5 @@ $('#pinPad a').click(function(){
 $('#btnDelete').click(function(){
     var display=$('#qcCustomNumber');
     var htmlstring="";
-    display.text(htmlstring);
+    display.val(htmlstring);
 });
