@@ -16,6 +16,7 @@
     <link href="/public/css/custom.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="img/favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -43,31 +44,31 @@
               <div class="row">
                 <div class="col-xs-4">
                   <div class="tile">
-                   <a id="qc20" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 20.00</a>
+                   <button id="qc20"  class="btn btn-lg btn-primary text-uppercase btn-padding" value="20.00">Rs 20.00</button>
                   </div>
 
                   <div class="tile">
-                   <a id="qc40" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 40.00</a>
+                   <button id="qc40"  class="btn btn-lg btn-primary text-uppercase btn-padding" value="40.00">Rs 40.00</button>
                   </div>
 
                 </div>
                 <div class="col-xs-4">
                   <div class="tile">
-                   <a id="qc60" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 60.00</a>
+                   <button id="qc60"  class="btn btn-lg btn-primary text-uppercase btn-padding" value="60.00">Rs 60.00</button>
                   </div>
 
                   <div class="tile">
-                   <a id="qc80" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 80.00</a>
+                   <button id="qc80"  class="btn btn-lg btn-primary text-uppercase btn-padding" value="80.00">Rs 80.00</a>
                   </div>
                 </div>
 
                 <div class="col-xs-4">
                   <div class="tile">
-                   <a id="qc100" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 100.00</a>
+                   <button id="qc100"  class="btn btn-lg btn-primary text-uppercase btn-padding" value="100.00">Rs. 100.00</a>
                   </div>
 
                   <div class="tile">
-                   <a id="qc200" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 200.00</a>
+                   <button id="qc200" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding" value="200.00">Rs. 200.00</a>
                   </div>
                 </div>
               </div>
@@ -75,26 +76,42 @@
                 <div class="col-xs-12">
                   <h6>Click a button to get that amount of cash.</h6>
                   <h5>or input a multiple of $20. Must be lower than $500</h5>
-              <input type="text" id="qcCustomNumber" class="form-control" placeholder="20.00" disabled />
+              <!-- <div id="qcCustomNumber" class="form-control"   >
+              
+              </div> -->
+              <form action="/newtransaction" method="POST" >
+               
+                <input type="text" name="amount"  id="qcCustomNumber" class="form-control">
+                <input type="text"  name="acc_no" value="<%=acc_no%>" hidden>
+               
+                <input type="submit" value="CONFIRM">
+                </form>
+
               <!-- Number Keys -->
 
               <!-- TABLE -->
               <div id="pinPad">
                 <table>
                   <tr>
-                    <td><a id="btn1" href="#" class="btn btn-block btn-lg btn-inverse">1</a></td>
-                    <td><a id="btn2" href="#" class="btn btn-block btn-lg btn-inverse">2</a></td>
-                    <td><a id="btn3" href="#" class="btn btn-block btn-lg btn-inverse">3</a></td>
-                    <td><a id="btn4" href="#" class="btn btn-block btn-lg btn-inverse">4</a></td>
-                    <td><a id="btn5" href="#" class="btn btn-block btn-lg btn-inverse">5</a></td>
-                    <td colspan="2"><a id="btnConfirm" href="#" class="btn btn-block btn-lg btn-primary text-uppercase">Confirm</a></td>
+                    <td><a id="btn1"  class="btn btn-block btn-lg btn-inverse" value="1">1</a></td>
+                   
+                    <td><a id="btn2" href="#" class="btn btn-block btn-lg btn-inverse" value="2">2</a></td>
+                    <td><a id="btn3" href="#" class="btn btn-block btn-lg btn-inverse" value="3">3</a></td>
+                    <td><a id="btn4" href="#" class="btn btn-block btn-lg btn-inverse" value="4">4</a></td>
+                    <td><a id="btn5" href="#" class="btn btn-block btn-lg btn-inverse" value="5">5</a></td>
+                   
+                      <!-- <form method="POST" action="/newtransaction">
+                       <input type="submit"> <td colspan="2"><a id="btnConfirm" href="#" class="btn btn-block btn-lg btn-primary text-uppercase"></a> Confirm</a></td></form>
+                      </form> -->
+                      
+              
                   </tr>
                   <tr>
-                    <td><a id="btn6" href="#" class="btn btn-block btn-lg btn-inverse">6</a></td>
-                    <td><a id="btn7" href="#" class="btn btn-block btn-lg btn-inverse">7</a></td>
-                    <td><a id="btn8" href="#" class="btn btn-block btn-lg btn-inverse">8</a></td>
-                    <td><a id="btn9" href="#" class="btn btn-block btn-lg btn-inverse">9</a></td>
-                    <td><a id="btn0" href="#" class="btn btn-block btn-lg btn-inverse">0</a></td>
+                    <td><a id="btn6" href="#" class="btn btn-block btn-lg btn-inverse" value="6">6</a></td>
+                    <td><a id="btn7" href="#" class="btn btn-block btn-lg btn-inverse" value="7">7</a></td>
+                    <td><a id="btn8" href="#" class="btn btn-block btn-lg btn-inverse" value="8">8</a></td>
+                    <td><a id="btn9" href="#" class="btn btn-block btn-lg btn-inverse" value="9">9</a></td>
+                    <td><a id="btn0" href="#" class="btn btn-block btn-lg btn-inverse" value="0">0</a></td>
                     <td colspan="2"><a id="btnDelete" href="#" class="btn btn-block btn-lg btn-default text-uppercase">Clear</a></td>
                   </tr>
                 </table>
@@ -135,12 +152,12 @@
     </div> <!-- /container -->
 
     
-
+    <script src="/public/script.js"></script>
     <script src="/public/dist/js/vendor/jquery.min.js"></script>
     <script src="/public/dist/js/vendor/video.js"></script>
     <script src="/public/dist/js/flat-ui.min.js"></script>
     <script src="/public/docs/assets/js/application.js"></script>
-
+    
     <script>
       videojs.options.flash.swf = "/public/dist/js/vendors/video-js.swf"
     </script>

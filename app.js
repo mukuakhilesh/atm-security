@@ -22,7 +22,7 @@ var expresserver=app.listen(3000,()=>{
     console.log('listening to 3000');
 })
 var pin="1234";
-var account_no="09856723451";
+var account_no="12345678901";
 var io=socketio(expresserver);
 app.get('/insert',(req,res)=>{
     userModel.find({},async(err,data)=>{
@@ -92,15 +92,21 @@ app.post('/adduser' , async (req , res)=> {
     }
 })
 app.get('/withdrawal',(req,res)=>{
-    res.render('withdrawal.ejs')
+    res.render('withdrawal.ejs',{acc_no:account_no})
 })
 app.post('/newtransaction',(req,res)=>{
+
+    console.log("request is ");
     console.log(req.body);
+
+
+
 try{
     userModel.findOne({acc_no:req.body.acc_no},(err,user)=>{
-        if(err) console.log(err)
+        if(err) {console.log(err); return ;}
         else{
-            console.log(user)
+            console.log(user);
+            if(user){
             user.transaction_report.push({
                 acc_no:req.body.acc_no,
                 fingerprint:req.body.fingerprint,
@@ -113,10 +119,12 @@ try{
                     // res.send("transaction successful");
                 }
             })
-             res.send(user);
+             res.redirect("/insert");
+        }
+        else return res.redirect('/insert');
         }
        
-    })
+    });
     // transactonModel.create({
     //     acc_no:req.body.accn_no,
     //     fingerprint:req.body.fingerprint,
@@ -128,6 +136,7 @@ try{
 }catch(err){
     console.log(err);
 }
+
 })
 app.get('/home',(req,res)=>{
     console.log(req.query)
