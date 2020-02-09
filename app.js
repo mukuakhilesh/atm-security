@@ -94,9 +94,15 @@ app.get('/pinConfirm',async(req,res)=>{
             console.log(pin);
             console.log(account_no)
             if(result==true)
-               res.send("validpin");
+               res.render("/withdrawal");
            else 
-               res.send("invalidPin")
+           {
+               console.log("invalid pin")
+               account_no="";
+               pin="";
+            res.send("invalidPin")
+           }
+              
         
         })
     
@@ -145,14 +151,14 @@ app.post('/newtransaction',(req,res)=>{
 
     console.log("request is ");
     console.log(req.body);
-
-
+    
+    
 
 try{
     userModel.findOne({acc_no:req.body.acc_no},(err,user)=>{
         if(err) {console.log(err); return ;}
         else{
-            console.log(user);
+           // console.log(user);
             if(user){
             user.transaction_report.push({
                 acc_no:req.body.acc_no,
