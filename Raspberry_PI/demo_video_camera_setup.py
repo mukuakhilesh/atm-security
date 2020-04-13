@@ -13,7 +13,7 @@ import time as tm
 from statistics import mode
 import tensorflow as tf
 
-tflite_path = './model/converted_model.tflite'
+tflite_path = './model/mobile_net_v1.tflite'
 tflite_inter = tf.lite.Interpreter(model_path = tflite_path)
 
 input_details = tflite_inter.get_input_details()
@@ -48,7 +48,7 @@ def detection():
             cv2.destroyAllWindows()
             cap.release()
             break
-            
+
     cv2.destroyAllWindows()
     cap.release()
     return (mode(pin))
@@ -61,12 +61,3 @@ while True:
     tm.sleep(1)
     pin = detection()
     print(pin,flush=True)
-
-
-
-
-
-
-
-
-

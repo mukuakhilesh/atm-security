@@ -13,14 +13,14 @@ from statistics import mode
 from imutils.video import WebcamVideoStream           # imutils is used in Raspberry PI for faster video capturing and execution. For PC we can use openCV also
 import socket
 import sys
- 
+
 # In this we load the tflite model as to run on Raspberry PI
 # In case to load .h5 model use below codes which has been commented out. And comment out the codes for tflite.
 
 # classifier = tf.keras.models.load_model('./models/best_mobileNet_model.h5')
 
 
-tflite_path = './model/converted_model.tflite'
+tflite_path = './model/mobile_net_v1.tflite'
 tflite_inter = tf.lite.Interpreter(model_path = tflite_path)
 
 input_details = tflite_inter.get_input_details()
@@ -61,7 +61,7 @@ def detection():
         pin.append(pred)
 
         end = tm.time()
-            
+
     vs.stop()                                                                   # The stream needs to be released after every function call. Or it will keep the camera Open.
     vs.stream.release()                                                         # To release capture stream from memory.
     # cv2.destroyAllWindows()
@@ -82,7 +82,7 @@ def sender(data):
     winsound.Beep(2500, 500)
     #print(a)
 
-# listener waits for pin request from backend    
+# listener waits for pin request from backend
 def listener() :
     try :
         print('listening')
@@ -101,11 +101,3 @@ def listener() :
 while True:
     listener()
     print(detection())
-
-
-
-
-
-
-
-
